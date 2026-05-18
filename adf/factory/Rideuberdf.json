@@ -1,0 +1,15 @@
+{
+	"name": "Rideuberdf",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "qatarcentral",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ad3c6462-9e32-470b-8930-4bf89aa4f7ff",
+		"tenantId": "671cb102-4dd6-4ca4-945a-644a085e8d87"
+	}
+}
