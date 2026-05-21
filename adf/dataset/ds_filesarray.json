@@ -1,0 +1,19 @@
+{
+	"name": "ds_filesarray",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adls",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "files_array.json",
+				"fileSystem": "raw"
+			}
+		},
+		"schema": {}
+	}
+}
