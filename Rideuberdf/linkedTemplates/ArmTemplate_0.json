@@ -76,7 +76,7 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": {
-							"value": "@dataset().p_file",
+							"value": "@{dataset().p_file}.json",
 							"type": "Expression"
 						},
 						"folderPath": "ingestion",
