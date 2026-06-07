@@ -133,7 +133,7 @@
 					"location": {
 						"type": "HttpServerLocation",
 						"relativeUrl": {
-							"value": "anshlambagit/Uber_Data_Engineer_Project/refs/heads/main/Data/@{dataset().p_file}.json",
+							"value": "rabab-abid/Ride-Booking-End-End-Data-Engineering-Project-EventHub-ADF-ADB/refs/heads/main/Data/@{dataset().p_file}.json",
 							"type": "Expression"
 						}
 					}
