@@ -34,7 +34,11 @@ The architecture bridges a localized, asynchronous event producer network with e
 Built a local FastAPI web server acting as a real-time stream producer. The application tracks passenger transactions, serializes payloads into clean JSON formats, and stream-pushes packets natively to Azure Event Hub over an authenticated, secure connection interface.
 
 ### Phase 2 & 3: Hybrid Orchestration & Storage
-Configured Azure Data Factory pipelines to parse external historical bulk ride data files and dimensional lookups. Implemented blind-copy overwrite policies at the data lake landing layer, shifting the platform strategy from legacy ETL to an efficient Cloud ELT architecture within an ADLS Gen2 engine.
+Configured Azure Data Factory pipelines to copy historical bulk rides & other mapping files from Github to ADLS Gen2. Implemented look-up activity to check the files array file from ADLS Gen2 that contains files list. Used ForEach activity to process this files array one by one to load historical data from Github dynamic relative URL using each file name with the help of Copy activity to paste it in ADLS Gen2 in same folder with dynamic file name.
+
+![HTTP To ADLS-1](media/ADF1.png)
+
+![HTTP To ADLS-2](media/ADF2.png)
 
 ### Phase 4 & 5: Stream-Batch Convergence (The DLT Append Flow)
 Within the Databricks Delta Live Tables (DLT) compiler ecosystem, initialized stateful `readStream` pipelines. Leveraged the specialized `@dlt.append_flow` decorator to combine real-time Event Hub payloads with a one-time streaming initialization of historical `bulk_rides` Delta tables, ensuring a unified historical record timeline without causing processing redundancies.
@@ -47,5 +51,13 @@ Denormalized the transaction OBT into an analytics-ready Dimensional Star Schema
 *   **Fact Tables:** Unified, deduplicated transactions tracked sequentially.
 *   **SCD Type 1 Dimensions:** Implemented on entities like Passengers and Drivers. 
 *   **SCD Type 2 Dimensions:** Implemented on evolving mapping attributes (like locations and city updates) using chronological `SEQUENCE BY` constraints to accurately track historical profiling shifts over time without deleting past transaction states.
+
+## 💰 Project Cost Analysis: To keep cloud expenses low, this pipeline uses a mix of fixed and consumption-based pricing models. Below is the final live cost report totaling $5.84 USD.
+
+![Project Cost Break-up](media/Cost Analysis.png)
  
+### Azure Event Hubs ($5.76): Charged a flat hourly rate for 1 Throughput Unit (TU) to reserve a 1 MB/s data streaming lane, plus a minor usage fee per million events.
+### Azure Data Factory v2 ($0.08): Serverless pricing. Charged strictly per pipeline trigger and for the exact minutes the data movement compute was active.
+### Azure Storage (<$0.01): Charged based on the total gigabytes of data stored on disk and the number of read/write file operations.
+### Bandwidth & Service Bus ($0.00): Free because all data stayed within the same Azure data center region.
  
