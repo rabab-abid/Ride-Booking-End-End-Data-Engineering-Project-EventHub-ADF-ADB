@@ -52,12 +52,21 @@ Denormalized the transaction OBT into an analytics-ready Dimensional Star Schema
 *   **SCD Type 1 Dimensions:** Implemented on entities like Passengers and Drivers. 
 *   **SCD Type 2 Dimensions:** Implemented on evolving mapping attributes (like locations and city updates) using chronological `SEQUENCE BY` constraints to accurately track historical profiling shifts over time without deleting past transaction states.
 
-## 💰 Project Cost Analysis: To keep cloud expenses low, this pipeline uses a mix of fixed and consumption-based pricing models. Below is the final live cost report totaling $5.84 USD.
+##  LDP/SDP/DLT:
+Below is the pipeline graph snapshot from Databricks, after completing phase 4- 8
+![Rideuber ingestion](media/LDP.png)
 
-![Project Cost Break-up](media/Cost Analysis.png)
+## 💰 Project Cost Analysis: 
+To keep cloud expenses low, this pipeline uses a mix of fixed and consumption-based pricing models. Below is the final live cost report totaling $5.84 USD.
+
+![Project Cost Break-up](media/CostAnalysis.png)
  
-### Azure Event Hubs ($5.76): Charged a flat hourly rate for 1 Throughput Unit (TU) to reserve a 1 MB/s data streaming lane, plus a minor usage fee per million events.
-### Azure Data Factory v2 ($0.08): Serverless pricing. Charged strictly per pipeline trigger and for the exact minutes the data movement compute was active.
-### Azure Storage (<$0.01): Charged based on the total gigabytes of data stored on disk and the number of read/write file operations.
-### Bandwidth & Service Bus ($0.00): Free because all data stayed within the same Azure data center region.
+### Azure Event Hubs ($5.76): 
+Charged a flat hourly rate for 1 Throughput Unit (TU) to reserve a 1 MB/s data streaming lane, plus a minor usage fee per million events.
+### Azure Data Factory v2 ($0.08): 
+Serverless pricing. Charged strictly per pipeline trigger and for the exact minutes the data movement compute was active.
+### Azure Storage (<$0.01): 
+Charged based on the total gigabytes of data stored on disk and the number of read/write file operations.
+### Bandwidth & Service Bus ($0.00): 
+Free because all data stayed within the same Azure data center region.
  
